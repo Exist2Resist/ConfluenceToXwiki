@@ -15,3 +15,4 @@ There will be some user intervention necessary.
 Also at the beginning of the converted file there is some jibberish due to the filestream method and how it works in .NET.
 
 For references the Xwiki Syntaxes can be found here.
+http://www.xwiki.org/xwiki/bin/view/Documentation/UserGuide/Features/XWikiSyntax/
