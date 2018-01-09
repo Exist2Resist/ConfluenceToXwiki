@@ -45,7 +45,8 @@ namespace ConfluenceToXwiki
             replaced = Regex.Replace(replaced, "&gt;", ">");
             replaced = Regex.Replace(replaced, "<em>", "//");
             replaced = Regex.Replace(replaced, "</em>", "//");
-            replaced = Regex.Replace(replaced, @"â€“", "“");
+            replaced = Regex.Replace(replaced, @"â€“", "-");
+            replaced = Regex.Replace(replaced, @"â€™", "'"); 
             replaced = Regex.Replace(replaced, "<tr class=\"sortableHeader\">", System.Environment.NewLine + "(% class=\"sortHeader\" %)");
 
             foreach (Match match in Regex.Matches(replaced, "<span class=\"|<span style=\"|<div class=\"|<div id=\"|<h1 id=\"|<h2 id=\"|<h3 id=\"|<h4 id=\"" +
