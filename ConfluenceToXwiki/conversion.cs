@@ -25,11 +25,12 @@ namespace ConfluenceToXwiki
             string xwikiFormat = stripData(pageContent); //raw captured body data
             string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\ConfluenceToXwiki\\" + repString + "\\";
             string fileAndPath = folderPath + fileName;
-            string converted = htmlConversion.tags(xwikiFormat); //strips HTML data and converts to Xwiki
+            string converted = htmlConversion.tags(convertToUTF8(xwikiFormat)); //strips HTML data and converts to Xwiki
 
             imageSave(folderPath, xwikiFormat, urlAddress);
             storeData(folderPath, fileAndPath, converted); //saves converted content to txt file           
-            storeData(folderPath, folderPath + repString + ".txt", xwikiFormat); //saves raw captured HTML to txt file
+            storeData(folderPath, folderPath + repString + ".txt", xwikiFormat); //saves raw captured HTML to txt file            
+            //storeData(folderPath, folderPath + repString + "_UTF8.txt", convertToUTF8(xwikiFormat));
         }
 
         public static void storeData(string directory, string fileAndPath, string pageContent)
@@ -113,6 +114,13 @@ namespace ConfluenceToXwiki
                     }
                 }
             }
+        }
+        //The below conversion is necessary otherwise non standard characters such as â€™ which is a (') and â€“ which is a (-) appear in converted text
+        public static string convertToUTF8(string xwikiFormat)
+        {
+            Encoding isoEnconding = Encoding.GetEncoding("iso-8859-1");
+            Byte[] source = isoEnconding.GetBytes(xwikiFormat);
+            return Encoding.UTF8.GetString(Encoding.Convert(isoEnconding, Encoding.UTF8, source));           
         }
     }
 }
